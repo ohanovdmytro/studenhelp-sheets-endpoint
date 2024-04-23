@@ -16,24 +16,15 @@ async function sendToGS(req, res) {
     const SPREADSHEET_ID = process.env.SHEET_ID;
     const SHEET_NAME = "Предмети";
 
-    const range = `${SHEET_NAME}!1:1`;
+    const range = `${SHEET_NAME}!A1:ZZ1`;
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
       range,
     });
 
-    const values =
-      typeof response.data.values === "undefined"
-        ? [NaN]
-        : response.data.values;
-    let nextColumnLetter = "A";
-
-    if (values && values[0].length > 0) {
-      const lastNonEmptyIndex = values[0].findIndex((cell) => !!cell.trim());
-      if (lastNonEmptyIndex !== -1) {
-        nextColumnLetter = String.fromCharCode(65 + lastNonEmptyIndex + 3);
-      }
-    }
+    const values = response.data.values;
+    let nextColumnIndex = values ? values[0].length : 0;
+    const nextColumnLetter = String.fromCharCode(65 + nextColumnIndex);
 
     const userData = [[name]];
     await sheets.spreadsheets.values.update({
@@ -46,11 +37,9 @@ async function sendToGS(req, res) {
     });
 
     const subjectData = subject.map((sub) => [sub]);
-    await sheets.spreadsheets.values.update({
+    await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${SHEET_NAME}!${nextColumnLetter}2:${nextColumnLetter}${
-        subject.length + 1
-      }`,
+      range: `${SHEET_NAME}!${nextColumnLetter}2`,
       valueInputOption: "RAW",
       resource: {
         values: subjectData,
