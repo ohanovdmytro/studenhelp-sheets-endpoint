@@ -1,16 +1,6 @@
-const express = require("express");
 const { google } = require("googleapis");
-const bodyParser = require("body-parser");
-const cors = require("cors");
 
-const app = express();
-const port = 3000;
-
-app.use(bodyParser.json());
-
-app.use(cors());
-
-app.post("/send", async (req, res) => {
+async function sendToGS(req, res) {
   try {
     const { name, subject } = req.body;
 
@@ -33,7 +23,7 @@ app.post("/send", async (req, res) => {
 
     const values = response.data.values;
     let nextColumnIndex = values ? values[0].length : 0;
-    const nextColumnLetter = String.fromCharCode(65 + nextColumnIndex); 
+    const nextColumnLetter = String.fromCharCode(65 + nextColumnIndex);
 
     const userData = [[name]];
     await sheets.spreadsheets.values.update({
@@ -58,12 +48,14 @@ app.post("/send", async (req, res) => {
     res.status(200).json({
       message: "Data written to Google Sheets successfully",
     });
+
+    console.log(`Subjects from ${name} sent to GS`);
   } catch (error) {
     console.error("Error writing data to Google Sheets:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
+}
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+module.exports = {
+  sendToGS,
+};
