@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "studenhelp-sheets-endpoint",
+  "builds": [{ "src": "express.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/src", "dest": "/express.js" }]
+}
