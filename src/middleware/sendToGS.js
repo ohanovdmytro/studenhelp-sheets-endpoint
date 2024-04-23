@@ -1,4 +1,5 @@
 const { google } = require("googleapis");
+require("dotenv").config();
 
 async function sendToGS(req, res) {
   try {
@@ -12,7 +13,7 @@ async function sendToGS(req, res) {
     const client = await auth.getClient();
     const sheets = google.sheets({ version: "v4", auth: client });
 
-    const SPREADSHEET_ID = "1gWBsURQMsk9JZ-OSEYju3voEhk-bhziywtxDfwHbxGI";
+    const SPREADSHEET_ID = process.env.SHEET_ID;
     const SHEET_NAME = "Предмети";
 
     const range = `${SHEET_NAME}!A1:ZZ1`;
