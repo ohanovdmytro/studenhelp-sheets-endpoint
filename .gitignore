@@ -25,3 +25,4 @@ credentials.json
 *.sw?
 
 .env
+.vercel
