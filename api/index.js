@@ -19,3 +19,5 @@ app.post("/uploadName", uploadName);
 app.listen(port, () => {
   console.log(`Server is running!`);
 });
+
+module.exports = app;
