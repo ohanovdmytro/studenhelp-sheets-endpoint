@@ -56,7 +56,7 @@ async function uploadSubjects(req, res) {
 
     res.status(200).json({
       message: "Data written to Google Sheets successfully",
-      name: name
+      name: name,
     });
 
     console.log(`Subjects from ${name} sent to GS`);

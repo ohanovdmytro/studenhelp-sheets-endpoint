@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/api/uploadSubjects",
+      "dest": "/src/api/uploadSubjects.js"
+    },
+    {
+      "src": "/api/uploadName",
+      "dest": "/src/api/uploadName.js"
+    }
+  ]
+}
