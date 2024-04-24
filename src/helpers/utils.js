@@ -1,4 +1,4 @@
-const fs = require("fs").promises;
+import { fs } from "fs/promises";
 
 async function getNameFromQueue() {
   try {
@@ -30,7 +30,7 @@ async function deleteNameFromQueue() {
   }
 }
 
-module.exports = {
+export default {
   deleteNameFromQueue,
   getNameFromQueue,
 };

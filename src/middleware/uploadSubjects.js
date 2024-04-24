@@ -1,10 +1,8 @@
-const { google } = require("googleapis");
-require("dotenv").config();
+import { google } from "googleapis";
+import { dotenv } from "dotenv";
+dotenv.config();
 
-const {
-  deleteNameFromQueue,
-  getNameFromQueue,
-} = require("../helpers/utils.js");
+import { deleteNameFromQueue, getNameFromQueue } from "../helpers/utils.js";
 
 async function uploadSubjects(req, res) {
   try {
@@ -66,6 +64,4 @@ async function uploadSubjects(req, res) {
   }
 }
 
-module.exports = {
-  uploadSubjects,
-};
+export default { uploadSubjects };
