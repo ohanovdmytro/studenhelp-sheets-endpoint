@@ -1,7 +1,7 @@
 const express = require("express");
 
-const { uploadSubjects } = require("./src/middleware/uploadSubjects.js");
-const { uploadName } = require("./src/middleware/uploadName.js");
+const { uploadSubjects } = require("./api/middleware/uploadSubjects.js");
+const { uploadName } = require("./api/middleware/uploadName.js");
 
 const cors = require("cors");
 
