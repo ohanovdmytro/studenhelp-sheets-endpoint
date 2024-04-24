@@ -1,5 +1,8 @@
 const express = require("express");
-const { sendToGS } = require("./middleware/sendToGS.js");
+
+const { uploadSubjects } = require("./middleware/uploadSubjects.js");
+const { uploadName } = require("./middleware/uploadName.js");
+
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -10,7 +13,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.post("/send", sendToGS);
+app.post("/uploadSubjects", uploadSubjects);
+app.post("/uploadName", uploadName);
 
 app.listen(port, () => {
   console.log(`Server is running!`);

@@ -1,9 +1,15 @@
 const { google } = require("googleapis");
 require("dotenv").config();
 
-async function sendToGS(req, res) {
+const {
+  deleteNameFromQueue,
+  getNameFromQueue,
+} = require("../helpers/utils.js");
+
+async function uploadSubjects(req, res) {
   try {
-    const { name, subject } = req.body;
+    const { subject } = req.body;
+    const name = await getNameFromQueue();
 
     const auth = new google.auth.GoogleAuth({
       keyFile: "credentials.json",
@@ -46,8 +52,11 @@ async function sendToGS(req, res) {
       },
     });
 
+    await deleteNameFromQueue();
+
     res.status(200).json({
       message: "Data written to Google Sheets successfully",
+      name: name
     });
 
     console.log(`Subjects from ${name} sent to GS`);
@@ -58,5 +67,5 @@ async function sendToGS(req, res) {
 }
 
 module.exports = {
-  sendToGS,
+  uploadSubjects,
 };
