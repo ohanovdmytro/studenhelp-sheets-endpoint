@@ -1,4 +1,4 @@
-import fs from "fs/promises";
+const { fs } = require("fs").promises;
 
 async function uploadName(req, res) {
   try {
@@ -19,4 +19,4 @@ async function uploadName(req, res) {
   }
 }
 
-export default uploadName;
+module.exports = { uploadName };
